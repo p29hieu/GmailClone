@@ -15,36 +15,50 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    var listItem: List<ItemGmailResponse> = listOf(
-        ItemGmailResponse(
-            1,
-            false,
-            "https://api.androidhive.info/json/google.png",
-            "Google Alerts",
-            "Google Alert - android",
-            "Now android supports multiple voice recogonization",
-            "10:30 AM",
-            true
-        ), ItemGmailResponse(
-            1,
-            false,
-            "https://api.androidhive.info/json/google.png",
-            "Google Alerts",
-            "Google Alert - android",
-            "Now android supports multiple voice recogonization",
-            "10:30 AM",
-            false
-        ), ItemGmailResponse(
-            1,
-            false,
-            "https://api.androidhive.info/json/google.png",
-            "Google Alerts",
-            "Google Alert - android",
-            "Now android supports multiple voice recogonization",
-            "10:30 AM",
-            true
-        )
-    )
+    var listItem: ArrayList<ItemGmailResponse>  = ArrayList<ItemGmailResponse>()
+
+    init {
+        listItem.addAll(listOf(
+            ItemGmailResponse(
+                1,
+                false,
+                "https://api.androidhive.info/json/google.png",
+                "Google Alerts",
+                "Google Alert - android",
+                "Now android supports multiple voice recogonization",
+                "10:30 AM",
+                false
+            ), ItemGmailResponse(
+                2,
+                false,
+                "https://api.androidhive.info/json/google.png",
+                "Google Alerts",
+                "Google Alert - android",
+                "Now android supports multiple voice recogonization",
+                "10:30 AM",
+                true
+            ), ItemGmailResponse(
+                3,
+                true,
+                "https://api.androidhive.info/json/google.png",
+                "Google Alerts",
+                "Google Alert - android",
+                "Now android supports multiple voice recogonization",
+                "10:30 AM",
+                true
+            ), ItemGmailResponse(
+                4,
+                true,
+                "https://api.androidhive.info/json/google.png",
+                "Google Alerts",
+                "Google Alert - android",
+                "Now android supports multiple voice recogonization",
+                "10:30 AM",
+                false
+            )
+        ))
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,20 +80,20 @@ class MainActivity : AppCompatActivity() {
 //            getInbox()
             Log.d("MyTag", "setOnClickListener")
 
-            listItem =    listItem.plus(
-                ItemGmailResponse(
-                    1,
-                    false,
-                    "https://api.androidhive.info/json/google.png",
-                    "Google Alerts",
-                    "Boogle Alert - android",
-                    "Now android supports multiple voice recogonization",
-                    "10:30 AM",
-                    false
-                )
+             listItem.add(
+                 ItemGmailResponse(
+                     listItem.size,
+                     false,
+                     "https://api.androidhive.info/json/google.png",
+                     "Google Alerts",
+                     "Boogle Alert - android",
+                     "Now android supports multiple voice recogonization",
+                     "10:30 AM",
+                     false
+                 )
             )
             Log.d("MyTag", listItem.size.toString())
-            adapter.notifyItemChanged(listItem.size)
+            adapter.notifyItemInserted(listItem.size-1);
         }
 
         fab_reload.setOnLongClickListener {

@@ -25,22 +25,28 @@ class GmailAdapter(private var context: Context, private var listItem: List<Item
         holder.time_send.text = listItem[position].timestamp
         holder.imageAvatar.text = listItem[position].from.substring(0, 1)
         if (listItem[position].isRead) {
-            holder.isStarred.setBackgroundResource(R.drawable.ic_baseline_star_24)
             holder.sender.setTypeface(null, Typeface.BOLD)
             holder.title.setTypeface(null, Typeface.BOLD)
             holder.time_send.setTypeface(null, Typeface.BOLD)
         } else {
-            holder.isStarred.setBackgroundResource(R.drawable.ic_baseline_star_border_24)
             holder.sender.setTypeface(null, Typeface.NORMAL)
             holder.title.setTypeface(null, Typeface.NORMAL)
             holder.time_send.setTypeface(null, Typeface.NORMAL)
         }
-        holder.itemGmail.setOnClickListener {
-            Toast.makeText(
-                context,
-                "${holder.sender.text} onClick",
-                Toast.LENGTH_LONG
-            ).show()
+        if (listItem[position].isImportant) {
+            holder.isStarred.setBackgroundResource(R.drawable.ic_baseline_star_border_24)
+        } else {
+            holder.isStarred.setBackgroundResource(R.drawable.ic_baseline_star_24)
+        }
+
+        holder.isStarred.setOnClickListener {
+            listItem[position].isImportant = !listItem[position].isImportant
+            notifyItemChanged(position);
+        }
+
+        holder.itemGmail.setOnClickListener{
+            listItem[position].isRead = !listItem[position].isRead
+            notifyItemChanged(position);
         }
     }
 
